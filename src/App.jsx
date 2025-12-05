@@ -18,13 +18,13 @@ import "./index.css";
 
 // Wrapper to hide navbar on login/signup pages
 function LayoutWithNavbar({ children }) {
-const { user } = useAuth();
-return (
-<>
-{user && <Navbar />}
-{children}
-</>
-);
+  const { user } = useAuth();
+  return (
+    <>
+      {user && <Navbar />}
+      {children}
+    </>
+  );
 }
 
 function App() {
@@ -32,88 +32,84 @@ function App() {
     <AuthProvider>
       <Router>
         <LayoutWithNavbar>
-          <div className="App">
-            <Routes>
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
 
-              {/* Public Routes */}
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
+            {/* Protected Routes */}
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
 
-              {/* Protected Routes */}
-              <Route
-                path="/"
-                element={
-                  <ProtectedRoute>
-                    <Dashboard />
-                  </ProtectedRoute>
-                }
-              />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
 
-              <Route
-                path="/dashboard"
-                element={
-                  <ProtectedRoute>
-                    <Dashboard />
-                  </ProtectedRoute>
-                }
-              />
+            <Route
+              path="/home"
+              element={
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>
+              }
+            />
 
-              <Route
-                path="/home"
-                element={
-                  <ProtectedRoute>
-                    <Home />
-                  </ProtectedRoute>
-                }
-              />
+            <Route
+              path="/lost"
+              element={
+                <ProtectedRoute>
+                  <LostItems />
+                </ProtectedRoute>
+              }
+            />
 
-              <Route
-                path="/lost"
-                element={
-                  <ProtectedRoute>
-                    <LostItems />
-                  </ProtectedRoute>
-                }
-              />
+            <Route
+              path="/found"
+              element={
+                <ProtectedRoute>
+                  <FoundItems />
+                </ProtectedRoute>
+              }
+            />
 
-              <Route
-                path="/found"
-                element={
-                  <ProtectedRoute>
-                    <FoundItems />
-                  </ProtectedRoute>
-                }
-              />
+            <Route
+              path="/report-lost"
+              element={
+                <ProtectedRoute>
+                  <ReportLost />
+                </ProtectedRoute>
+              }
+            />
 
-              <Route
-                path="/report-lost"
-                element={
-                  <ProtectedRoute>
-                    <ReportLost />
-                  </ProtectedRoute>
-                }
-              />
+            <Route
+              path="/report-found"
+              element={
+                <ProtectedRoute>
+                  <ReportFound />
+                </ProtectedRoute>
+              }
+            />
 
-              <Route
-                path="/report-found"
-                element={
-                  <ProtectedRoute>
-                    <ReportFound />
-                  </ProtectedRoute>
-                }
-              />
-
-              <Route
-                path="/matches"
-                element={
-                  <ProtectedRoute>
-                    <Matches />
-                  </ProtectedRoute>
-                }
-              />
-
-            </Routes>
-          </div>
+            <Route
+              path="/matches"
+              element={
+                <ProtectedRoute>
+                  <Matches />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
         </LayoutWithNavbar>
       </Router>
     </AuthProvider>
